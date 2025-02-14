@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 13 fevr. 2025, 17:53:57 by Hibernate Tools 5.4.33.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="database.Cours" optimistic-lock="none" schema="public" table="cours">
+        <id name="idcours" type="int">
+            <column name="idcours"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="database.Enseignant" fetch="select" name="enseignant">
+            <column length="254" name="login" not-null="true"/>
+            <column name="idens" not-null="true"/>
+        </many-to-one>
+        <property name="code" type="string">
+            <column length="254" name="code" unique="true"/>
+        </property>
+        <property name="nomcours" type="string">
+            <column length="254" name="nomcours"/>
+        </property>
+        <set fetch="select" inverse="false" lazy="true" name="classes" table="association4">
+            <key>
+                <column name="idcours" not-null="true"/>
+            </key>
+            <many-to-many entity-name="database.Classe">
+                <column name="cla_idcours" not-null="true"/>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

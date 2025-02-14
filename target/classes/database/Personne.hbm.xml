@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 13 fevr. 2025, 17:53:57 by Hibernate Tools 5.4.33.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="database.Personne" optimistic-lock="none" schema="public" table="personne">
+        <id name="login" type="string">
+            <column length="254" name="login"/>
+            <generator class="assigned"/>
+        </id>
+        <property name="idpersonne" type="java.lang.Integer">
+            <column name="idpersonne" unique="true"/>
+        </property>
+        <property name="prenom" type="string">
+            <column length="254" name="prenom"/>
+        </property>
+        <property name="nom" type="string">
+            <column length="254" name="nom"/>
+        </property>
+        <property name="password" type="string">
+            <column length="254" name="password"/>
+        </property>
+        <property name="adresse" type="string">
+            <column length="254" name="adresse"/>
+        </property>
+        <property name="age" type="java.lang.Integer">
+            <column name="age"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="enseignants" table="enseignant">
+            <key>
+                <column length="254" name="login" not-null="true"/>
+            </key>
+            <one-to-many class="database.Enseignant"/>
+        </set>
+        <set fetch="select" inverse="true" lazy="true" name="etudiants" table="etudiant">
+            <key>
+                <column length="254" name="login" not-null="true"/>
+            </key>
+            <one-to-many class="database.Etudiant"/>
+        </set>
+    </class>
+</hibernate-mapping>

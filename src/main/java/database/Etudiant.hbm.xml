@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 13 fevr. 2025, 17:53:57 by Hibernate Tools 5.4.33.Final -->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="database.Etudiant" optimistic-lock="none" schema="public" table="etudiant">
+        <composite-id class="database.EtudiantId" name="id">
+            <key-property name="login" type="string">
+                <column length="254" name="login"/>
+            </key-property>
+            <key-property name="idetudiant" type="int">
+                <column name="idetudiant"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="database.Classe" fetch="select" name="classe">
+            <column name="idcours" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="database.Personne" fetch="select" insert="false" name="personne" update="false">
+            <column length="254" name="login" not-null="true"/>
+        </many-to-one>
+        <property name="ncarteetudiant" type="string">
+            <column length="254" name="ncarteetudiant"/>
+        </property>
+    </class>
+</hibernate-mapping>
