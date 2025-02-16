@@ -1,43 +1,38 @@
 package bean;
+import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
+import dao.PersonneHome;
 import database.Personne;
 
 public class Main {
     public static void main(String[] args) {
-        // Chargement de la configuration Hibernate
-        SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-        Session session = factory.openSession();
-        Transaction transaction = session.beginTransaction();
+        PersonneHome personneHome = new PersonneHome();
 
-        try {
-            // Création de la première personne
-            Personne personne1 = new Personne();
-            personne1.setNom("dieng");
-            personne1.setPrenom("amadou");
-            personne1.setAge(25);
-            personne1.setAdresse("kaolack");
-            personne1.setLogin("amadoudieng101");
-            personne1.setPassword("diengcode");
-            // Enregistrement de la personne dans la base
-            session.save(personne1);
 
-            // Validation de la transaction
-            transaction.commit();
-            System.out.println("Données enregistrées avec succès !");
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            session.close();
-            factory.close();
+
+
+        // Appeler la méthode ListUsers pour afficher tous les utilisateurs
+        List<Personne> users = personneHome.ListUsers();
+        System.out.println("Liste des utilisateurs: ");
+        for (Personne user : users) {
+            System.out.println(user.getPrenom() + " " + user.getNom());
         }
+
+        // Appeler ListUserPrenom pour afficher uniquement les prénoms de tous les utilisateurs
+        List<String> prenoms = personneHome.ListUserPrenom();
+        System.out.println("Prénoms des utilisateurs: ");
+        for (String prenom : prenoms) {
+            System.out.println(prenom);
+        }
+
+        // Appeler ListUserPrenomWithProjection pour récupérer uniquement les prénoms avec l'API Projection
+        List<String> prenomsProjection = personneHome.ListUserPrenomWithProjection();
+        System.out.println("Prénoms avec projection: ");
+        for (String prenom : prenomsProjection) {
+            System.out.println(prenom);
+        }
+
+
+
     }
 }
-

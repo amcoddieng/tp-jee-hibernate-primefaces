@@ -4,7 +4,9 @@ import database.Personne;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.LockMode;
+import org.hibernate.Session;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Projections;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -111,4 +113,76 @@ public class PersonneHome {
 			throw re;
 		}
 	}
+	
+	
+	
+	// Liste tous les utilisateurs
+    public List<Personne> ListUsers() {
+        logger.log(Level.INFO, "Listing all Personne instances");
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            List<Personne> result = session.createQuery("from Personne").list();
+            session.getTransaction().commit();
+            return result;
+        } catch (RuntimeException re) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            logger.log(Level.SEVERE, "List all failed", re);
+            throw re;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    // Liste le prénom de tous les utilisateurs
+    public List<String> ListUserPrenom() {
+        logger.log(Level.INFO, "Listing first name of all Personne instances");
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            List<String> result = session.createQuery("select p.prenom from Personne p").list();
+            session.getTransaction().commit();
+            return result;
+        } catch (RuntimeException re) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            logger.log(Level.SEVERE, "List first name failed", re);
+            throw re;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    // Utilisation de l'API Projection pour récupérer seulement le prénom de l'utilisateur
+    public List<String> ListUserPrenomWithProjection() {
+        logger.log(Level.INFO, "Listing first name of all Personne instances with Projection");
+        Session session = null;
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            List<String> result = session.createQuery("select p.prenom from Personne p").list();
+            session.getTransaction().commit();
+            return result;
+        } catch (RuntimeException re) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            logger.log(Level.SEVERE, "List first name with projection failed", re);
+            throw re;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 }
