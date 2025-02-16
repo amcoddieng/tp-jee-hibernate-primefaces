@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html">
+<head>
+    <title>Inscription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Barre de navigation -->
+    <nav class="bg-blue-600 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-white text-2xl font-semibold">Mon Application</h1>
+            <div class="space-x-4">
+                <a href="#home" class="text-white hover:text-blue-300">Accueil</a>
+                <a href="#about" class="text-white hover:text-blue-300">À propos</a>
+                <a href="#contact" class="text-white hover:text-blue-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Formulaire d'inscription -->
+    <div class="flex justify-center items-center min-h-screen">
+        <h:form id="signupForm" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            <h1 class="text-2xl font-semibold text-center mb-6">Inscription</h1>
+
+            <div class="mb-4">
+                <h:outputText value="Nom" class="block text-sm font-medium text-gray-700" />
+                <h:inputText value="#{personneBean.nom}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <h:message for="nom" class="text-red-500 text-sm mt-1" />
+            </div>
+
+            <div class="mb-4">
+                <h:outputText value="Prénom" class="block text-sm font-medium text-gray-700" />
+                <h:inputText value="#{personneBean.prenom}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <h:message for="prenom" class="text-red-500 text-sm mt-1" />
+            </div>
+
+            <div class="mb-4">
+                <h:outputText value="Âge" class="block text-sm font-medium text-gray-700" />
+                <h:inputText value="#{personneBean.age}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <h:message for="age" class="text-red-500 text-sm mt-1" />
+            </div>
+
+            <div class="mb-4">
+                <h:outputText value="Adresse" class="block text-sm font-medium text-gray-700" />
+                <h:inputText value="#{personneBean.adresse}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <h:message for="adresse" class="text-red-500 text-sm mt-1" />
+            </div>
+
+            <div class="mb-4">	
+                <h:outputText value="Login" class="block text-sm font-medium text-gray-700" />
+                <h:inputText value="#{personneBean.login}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <h:message for="login" class="text-red-500 text-sm mt-1" />
+            </div>
+
+            <div class="mb-4">
+                <h:outputText value="Mot de passe" class="block text-sm font-medium text-gray-700" />
+                <h:inputSecret value="#{personneBean.password}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <h:message for="password" class="text-red-500 text-sm mt-1" />
+            </div>
+
+            <h:commandButton value="S'inscrire" action="#{personneBean.inscrire}" class="w-full mt-4 p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none" />
+        </h:form>
+    </div>
+
+</body>
+</html>

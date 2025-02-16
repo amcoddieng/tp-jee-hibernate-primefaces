@@ -1,4 +1,4 @@
-package database;
+package dao;
 // Generated 13 f�vr. 2025, 17:53:57 by Hibernate Tools 5.4.33.Final
 
 import java.util.List;
@@ -8,6 +8,8 @@ import javax.naming.InitialContext;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+
+import database.Cours;
 
 /**
  * Home object for domain model class Cours.

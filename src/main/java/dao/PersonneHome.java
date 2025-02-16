@@ -1,44 +1,42 @@
-package database;
-// Generated 13 f�vr. 2025, 17:53:57 by Hibernate Tools 5.4.33.Final
+package dao;
+
+import database.Personne;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.LockMode;
+import org.hibernate.criterion.Example;
 
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.InitialContext;
-import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Example;
 
 /**
  * Home object for domain model class Personne.
- * @see database.Personne
- * @author Hibernate Tools
  */
 public class PersonneHome {
 
-	private static final Logger logger = Logger.getLogger(PersonneHome.class.getName());
+    private static final Logger logger = Logger.getLogger(PersonneHome.class.getName());
+    private final SessionFactory sessionFactory = getSessionFactory();
 
-	private final SessionFactory sessionFactory = getSessionFactory();
+    protected SessionFactory getSessionFactory() {
+        try {
+            return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Could not build SessionFactory from hibernate.cfg.xml", e);
+            throw new IllegalStateException("Could not build SessionFactory from hibernate.cfg.xml");
+        }
+    }
 
-	protected SessionFactory getSessionFactory() {
-		try {
-			return (SessionFactory) new InitialContext().lookup("SessionFactory");
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Could not locate SessionFactory in JNDI", e);
-			throw new IllegalStateException("Could not locate SessionFactory in JNDI");
-		}
-	}
-
-	public void persist(Personne transientInstance) {
-		logger.log(Level.INFO, "persisting Personne instance");
-		try {
-			sessionFactory.getCurrentSession().persist(transientInstance);
-			logger.log(Level.INFO, "persist successful");
-		} catch (RuntimeException re) {
-			logger.log(Level.SEVERE, "persist failed", re);
-			throw re;
-		}
-	}
+    public void persist(Personne transientInstance) {
+        logger.log(Level.INFO, "Persisting Personne instance");
+        try {
+            sessionFactory.getCurrentSession().persist(transientInstance);
+            logger.log(Level.INFO, "Persist successful");
+        } catch (RuntimeException re) {
+            logger.log(Level.SEVERE, "Persist failed", re);
+            throw re;
+        }
+    }
 
 	public void attachDirty(Personne instance) {
 		logger.log(Level.INFO, "attaching dirty Personne instance");

@@ -1,9 +1,11 @@
-package database;
+package bean;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+
+import database.Personne;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class Main {
             personne1.setPrenom("amadou");
             personne1.setAge(25);
             personne1.setAdresse("kaolack");
-            personne1.setLogin("amadoudieng");
+            personne1.setLogin("amadoudieng101");
             personne1.setPassword("diengcode");
             // Enregistrement de la personne dans la base
             session.save(personne1);

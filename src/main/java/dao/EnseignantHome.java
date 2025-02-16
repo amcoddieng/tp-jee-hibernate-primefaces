@@ -1,4 +1,4 @@
-package database;
+package dao;
 // Generated 13 f�vr. 2025, 17:53:57 by Hibernate Tools 5.4.33.Final
 
 import java.util.List;
@@ -9,14 +9,17 @@ import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
+import database.Enseignant;
+import database.EnseignantId;
+
 /**
- * Home object for domain model class Classe.
- * @see database.Classe
+ * Home object for domain model class Enseignant.
+ * @see database.Enseignant
  * @author Hibernate Tools
  */
-public class ClasseHome {
+public class EnseignantHome {
 
-	private static final Logger logger = Logger.getLogger(ClasseHome.class.getName());
+	private static final Logger logger = Logger.getLogger(EnseignantHome.class.getName());
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -29,8 +32,8 @@ public class ClasseHome {
 		}
 	}
 
-	public void persist(Classe transientInstance) {
-		logger.log(Level.INFO, "persisting Classe instance");
+	public void persist(Enseignant transientInstance) {
+		logger.log(Level.INFO, "persisting Enseignant instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			logger.log(Level.INFO, "persist successful");
@@ -40,8 +43,8 @@ public class ClasseHome {
 		}
 	}
 
-	public void attachDirty(Classe instance) {
-		logger.log(Level.INFO, "attaching dirty Classe instance");
+	public void attachDirty(Enseignant instance) {
+		logger.log(Level.INFO, "attaching dirty Enseignant instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			logger.log(Level.INFO, "attach successful");
@@ -51,8 +54,8 @@ public class ClasseHome {
 		}
 	}
 
-	public void attachClean(Classe instance) {
-		logger.log(Level.INFO, "attaching clean Classe instance");
+	public void attachClean(Enseignant instance) {
+		logger.log(Level.INFO, "attaching clean Enseignant instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			logger.log(Level.INFO, "attach successful");
@@ -62,8 +65,8 @@ public class ClasseHome {
 		}
 	}
 
-	public void delete(Classe persistentInstance) {
-		logger.log(Level.INFO, "deleting Classe instance");
+	public void delete(Enseignant persistentInstance) {
+		logger.log(Level.INFO, "deleting Enseignant instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			logger.log(Level.INFO, "delete successful");
@@ -73,10 +76,10 @@ public class ClasseHome {
 		}
 	}
 
-	public Classe merge(Classe detachedInstance) {
-		logger.log(Level.INFO, "merging Classe instance");
+	public Enseignant merge(Enseignant detachedInstance) {
+		logger.log(Level.INFO, "merging Enseignant instance");
 		try {
-			Classe result = (Classe) sessionFactory.getCurrentSession().merge(detachedInstance);
+			Enseignant result = (Enseignant) sessionFactory.getCurrentSession().merge(detachedInstance);
 			logger.log(Level.INFO, "merge successful");
 			return result;
 		} catch (RuntimeException re) {
@@ -85,10 +88,10 @@ public class ClasseHome {
 		}
 	}
 
-	public Classe findById(int id) {
-		logger.log(Level.INFO, "getting Classe instance with id: " + id);
+	public Enseignant findById(database.EnseignantId id) {
+		logger.log(Level.INFO, "getting Enseignant instance with id: " + id);
 		try {
-			Classe instance = (Classe) sessionFactory.getCurrentSession().get("database.Classe", id);
+			Enseignant instance = (Enseignant) sessionFactory.getCurrentSession().get("database.Enseignant", id);
 			if (instance == null) {
 				logger.log(Level.INFO, "get successful, no instance found");
 			} else {
@@ -101,10 +104,10 @@ public class ClasseHome {
 		}
 	}
 
-	public List findByExample(Classe instance) {
-		logger.log(Level.INFO, "finding Classe instance by example");
+	public List findByExample(Enseignant instance) {
+		logger.log(Level.INFO, "finding Enseignant instance by example");
 		try {
-			List results = sessionFactory.getCurrentSession().createCriteria("database.Classe")
+			List results = sessionFactory.getCurrentSession().createCriteria("database.Enseignant")
 					.add(Example.create(instance)).list();
 			logger.log(Level.INFO, "find by example successful, result size: " + results.size());
 			return results;
