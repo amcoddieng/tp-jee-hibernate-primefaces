@@ -3,10 +3,12 @@ package dao;
 import database.Personne;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.Criteria;
 import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -184,5 +186,60 @@ public class PersonneHome {
             }
         }
     }
+    
+
+    public Personne login(String email, String password) {
+        // Enregistrement d'une entrée de log pour indiquer que la tentative de login commence
+        logger.log(Level.INFO, "Attempting login for email: " + email);
+        
+        // Initialisation de la session Hibernate
+        Session session = null;
+        
+        try {
+            // Ouverture de la session pour interagir avec la base de données
+            session = sessionFactory.openSession();
+            // Démarrage de la transaction pour garantir l'intégrité des données
+            session.beginTransaction();
+
+            // Création d'un critère pour rechercher dans la classe Personne
+            Criteria criteria = session.createCriteria(Personne.class);
+            // Ajout d'une restriction sur l'email de la personne
+            criteria.add(Restrictions.eq("email", email));
+            // Ajout d'une restriction sur le mot de passe de la personne
+            criteria.add(Restrictions.eq("password", password));
+
+            // Récupération du premier résultat correspondant aux critères (s'il existe)
+            Personne result = (Personne) criteria.uniqueResult();
+            
+            // Validation de la transaction pour appliquer les changements
+            session.getTransaction().commit();
+            
+            // Si un utilisateur a été trouvé, on logue un message de succès
+            if (result != null) {
+                logger.log(Level.INFO, "Login successful for email: " + email);
+            } else {
+                // Si aucun utilisateur n'a été trouvé, on logue un message d'échec
+                logger.log(Level.INFO, "Login failed: No user found with the provided credentials");
+            }
+            
+            // Retourne l'utilisateur trouvé, ou null si aucun utilisateur n'est trouvé
+            return result;
+        } catch (RuntimeException re) {
+            // En cas d'erreur, on effectue un rollback de la transaction pour annuler les changements
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            // Log de l'erreur rencontrée
+            logger.log(Level.SEVERE, "Login failed", re);
+            // Relance l'exception pour la gestion plus haut dans la pile d'appels
+            throw re;
+        } finally {
+            // Ferme la session Hibernate pour libérer les ressources
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
 
 }

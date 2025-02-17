@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 <head>
     <title>Connexion</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,22 +22,22 @@
 
     <!-- Formulaire de connexion -->
     <div class="flex justify-center items-center min-h-screen">
-        <h:form id="loginForm" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h:form id="loginForm" styleClass="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <h1 class="text-2xl font-semibold text-center mb-6">Connexion</h1>
 
             <div class="mb-4">
-                <h:outputText value="Login" class="block text-sm font-medium text-gray-700" />
-                <h:inputText value="#{loginBean.login}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
-                <h:message for="login" class="text-red-500 text-sm mt-1" />
+                <p:outputLabel for="login" value="Login" styleClass="block text-sm font-medium text-gray-700" />
+                <p:inputText id="login" value="#{loginBean.login}" required="true" styleClass="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <p:message for="login" styleClass="text-red-500 text-sm mt-1" />
             </div>
 
             <div class="mb-4">
-                <h:outputText value="Mot de passe" class="block text-sm font-medium text-gray-700" />
-                <h:inputSecret value="#{loginBean.password}" required="true" class="mt-1 p-2 border border-gray-300 rounded-md w-full" />
-                <h:message for="password" class="text-red-500 text-sm mt-1" />
+                <p:outputLabel for="password" value="Mot de passe" styleClass="block text-sm font-medium text-gray-700" />
+                <p:password id="password" value="#{loginBean.password}" required="true" styleClass="mt-1 p-2 border border-gray-300 rounded-md w-full" />
+                <p:message for="password" styleClass="text-red-500 text-sm mt-1" />
             </div>
 
-            <h:commandButton value="Se connecter" action="#{loginBean.loginAction}" class="w-full mt-4 p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none" />
+            <p:commandButton value="Se connecter" action="#{loginBean.loginAction}" styleClass="w-full mt-4 p-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none" />
         </h:form>
     </div>
     

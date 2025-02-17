@@ -7,11 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 //import org.hibernate.query.Query;
 import org.hibernate.cfg.Configuration;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-@ManagedBean(name = "loginBean")
-@SessionScoped
 public class LoginBean {
 
     private String login;
